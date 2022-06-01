@@ -3,7 +3,7 @@ import { IFormDef } from "./form-definition-model";
 // Form Definition schema
 export interface IForm {
     id: number;
-    formDef: IFormDef
+    values: string[];
 }
 
 
@@ -12,10 +12,10 @@ export interface IForm {
  * 
  * @returns 
  */
-function getNew(name: string, formDef: IFormDef): IForm {
+function getNew(id: number, values: string[]): IForm {
     return {
         id: -1,
-        formDef
+        values
     };
 }
 
@@ -29,7 +29,7 @@ function getNew(name: string, formDef: IFormDef): IForm {
 function copy(form: IForm): IForm {
     return {
         id: form.id,
-        formDef: form.formDef
+        values: form.values
     }
 }
 

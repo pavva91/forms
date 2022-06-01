@@ -112,6 +112,7 @@ async function deleteOne(id: number): Promise<void> {
 
 // Export default
 export default {
+    get,
     getOne,
     persists,
     getAll,

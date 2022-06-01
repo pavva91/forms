@@ -1,8 +1,12 @@
 import StatusCodes from 'http-status-codes';
 import { Request, Response, Router } from 'express';
 
-import userService from '@services/user-service';
+import formService from '@services/form-service';
+import formDefService from '@services/form-definition-service';
 import { ParamMissingError } from '@shared/errors';
+import { IForm } from '@models/form-model';
+import { getRandomInt } from '@shared/functions';
+
 
 
 
@@ -24,22 +28,27 @@ export const p = {
  * Get all users.
  */
 router.get(p.get, async (_: Request, res: Response) => {
-    const users = await userService.getAll();
+    const users = await formService.getAll();
     return res.status(OK).json({users});
 });
 
 
 /**
- * Add one form definition.
+ * Add one form entry.
  */
 router.post(p.add, async (req: Request, res: Response) => {
-    const { user } = req.body;
+    let id: number = parseInt(req.params.id)
+    
+
+   
     // Check param
-    if (!user) {
-        throw new ParamMissingError();
-    }
+    // if (!req.body.) {
+    //     throw new ParamMissingError();
+    // }
     // Fetch data
-    await userService.addOne(user);
+    // var form:IForm=req.body;
+    let form = {values: req.body.values, id:getRandomInt()}
+    await formService.addOne(form, id);
     return res.status(CREATED).end();
 });
 
@@ -54,7 +63,7 @@ router.put(p.update, async (req: Request, res: Response) => {
         throw new ParamMissingError();
     }
     // Fetch data
-    await userService.updateOne(user);
+    await formService.updateOne(user);
     return res.status(OK).end();
 });
 
@@ -69,7 +78,7 @@ router.delete(p.delete, async (req: Request, res: Response) => {
         throw new ParamMissingError();
     }
     // Fetch data
-    await userService.delete(Number(id));
+    await formService.delete(Number(id));
     return res.status(OK).end();
 });
 

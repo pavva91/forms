@@ -38,33 +38,18 @@ router.get(p.get, async (_: Request, res: Response) => {
  * Add one form definition.
  */
 router.post(p.add, async (req: Request, res: Response) => {
-    console.log(req.body)
-    console.log(req.body.name)
-    console.log(!req.body.types)
-
-    console.log(req.body.questions)
-    console.log(req.body.types)
-
-    console.log("Form Definition: " + req.body);
-    //const { formdefinition } = req.body;
+    // Check param
+    if (!req.body.name || !req.body.questions || !req.body.types) {
+        throw new ParamMissingError();
+    }
+    // Fetch data
     // var formdefinition:IFormDef = { 
     //     name:req.body.name,
     //     questions:req.body.questions,
     //     types:req.body.types,
     //     id:getRandomInt()
-    //  } 
-    var formdefinition:IFormDef=req.body;
-    console.log("Form Definition: " + formdefinition)
-    // Check param
-    if (!req.body.name || !req.body.questions || !req.body.types) {
-        throw new ParamMissingError();
-    }
-    //if (!formdefinition) {
-    if (!formdefinition) {
-
-        throw new ParamMissingError();
-    }
-    // Fetch data
+    //  }
+     let formdefinition = {name: req.body.name, questions: req.body.questions, types: req.body.types, id:getRandomInt()}
     //await formDefService.addOne(formdefinition);
     await formDefService.addOne(formdefinition);
     return res.status(CREATED).end();

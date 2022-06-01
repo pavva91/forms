@@ -13,6 +13,20 @@ function getAll(): Promise<IFormDef[]> {
     return formDefRepo.getAll();
 }
 
+/**
+ * Get a formdefinition by their id.
+ * 
+ * @param id 
+ * @returns 
+ */
+ async function get(id: number): Promise<IFormDef | null> {
+    const persists = await formDefRepo.persists(id);
+    if (!persists) {
+        throw new UserNotFoundError();
+    }
+    return formDefRepo.get(id);
+}
+
 
 /**
  * Add one formdefinition.
@@ -57,6 +71,7 @@ async function deleteOne(id: number): Promise<void> {
 
 // Export default
 export default {
+    get,
     getAll,
     addOne,
     updateOne,
