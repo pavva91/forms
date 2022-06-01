@@ -1,0 +1,34 @@
+{
+    "formdefinitions": [
+        {
+            "name": "Borrower Form",
+            "questions": [
+                "What is the name of your company?",
+                "Where is your company located?",
+                "How long does your company exist?"
+            ],
+            "types": [
+                "string",
+                "tuple",
+                "integer"
+            ],
+            "id": 1
+        },
+        {
+            "name": "Investor Form",
+            "questions": [
+                "How much capital do you want to invest?",
+                "Are you interested in investing in individual deals?",
+                "What was the date your company was founded?",
+                "How many people work at your firm?"
+            ],
+            "types": [
+                "integer",
+                "boolean",
+                "date",
+                "integer"
+            ],
+            "id": 2
+        }
+    ]
+}
