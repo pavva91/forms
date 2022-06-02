@@ -44,4 +44,8 @@ I used these technologies:
 - Typescript
 took from here: https://www.npmjs.com/package/express-generator-typescript
 
+## TODO
+- Regex on Dates and geo-coordinates(lat,lon)
+- Unit test
+
 https://credix.notion.site/Full-stack-technical-task-bc377eec0c234220ba0fcd33d28427f1
