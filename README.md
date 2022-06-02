@@ -42,7 +42,9 @@ I used these technologies:
 - nodejs
 - express.js
 - Typescript
+
 took from here: https://www.npmjs.com/package/express-generator-typescript
+https://www.fullstacklabs.co/blog/express-generator-typescript-module
 
 ## TODO
 - Regex on Dates and geo-coordinates(lat,lon)
