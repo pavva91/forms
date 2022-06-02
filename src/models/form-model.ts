@@ -3,7 +3,8 @@ import { IFormDef } from "./form-definition-model";
 // Form Definition schema
 export interface IForm {
     id: number;
-    values: string[];
+    values: unknown[];
+    form_definition_id: number;
 }
 
 
@@ -12,10 +13,11 @@ export interface IForm {
  * 
  * @returns 
  */
-function getNew(id: number, values: string[]): IForm {
+function getNew(id: number, values: unknown[], form_definition_id: number): IForm {
     return {
         id: -1,
-        values
+        values,
+        form_definition_id
     };
 }
 
@@ -29,7 +31,8 @@ function getNew(id: number, values: string[]): IForm {
 function copy(form: IForm): IForm {
     return {
         id: form.id,
-        values: form.values
+        values: form.values,
+        form_definition_id: form.form_definition_id
     }
 }
 

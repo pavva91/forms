@@ -17,7 +17,7 @@ const { CREATED, OK } = StatusCodes;
 // Paths
 export const p = {
     get: '/all',
-    add: '/:id/entries',
+    add: '/:form_definition_id/entries',
     update: '/update',
     delete: '/delete/:id',
 } as const;
@@ -25,7 +25,7 @@ export const p = {
 
 
 /**
- * Get all users.
+ * Get all form entries.
  */
 router.get(p.get, async (_: Request, res: Response) => {
     const users = await formService.getAll();
@@ -37,18 +37,14 @@ router.get(p.get, async (_: Request, res: Response) => {
  * Add one form entry.
  */
 router.post(p.add, async (req: Request, res: Response) => {
-    let id: number = parseInt(req.params.id)
-    
-
-   
+    // TODO: Check if a number
+    let form_definition_id: number = parseInt(req.params.form_definition_id);
     // Check param
-    // if (!req.body.) {
-    //     throw new ParamMissingError();
-    // }
-    // Fetch data
-    // var form:IForm=req.body;
-    let form = {values: req.body.values, id:getRandomInt()}
-    await formService.addOne(form, id);
+    if (!req.body.values) {
+        throw new ParamMissingError();
+    }
+    let form = {values: req.body.values, id:getRandomInt(), form_definition_id:form_definition_id}
+    await formService.addOne(form);
     return res.status(CREATED).end();
 });
 
