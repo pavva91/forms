@@ -1,0 +1,576 @@
+{
+	"info": {
+		"_postman_id": "519e5bc4-b5dd-4ce6-9fa1-07dbdff47ce9",
+		"name": "BE Technical Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create form definition",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"name\": \"Valid Types 2\",\n            \"questions\": [\n                \"What?\",\n                \"Where?\"\n            ],\n            \"types\": [\n                \"string\",\n                \"tuple (lat/lon)\"\n            ],\n            \"id\": 1\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/definitions",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"definitions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create form definition Invalid Types",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"name\": \"Error7\",\n            \"questions\": [\n                \"What?\",\n                \"Where?\"\n            ],\n            \"types\": [\n                \"ciao\",\n                \"tuple\"\n            ],\n            \"id\": 1\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/definitions",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"definitions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create form definition Questions and Types Not Equal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"name\": \"SME Borrower\",\n            \"questions\": [\n                \"What?\"            ],\n            \"types\": [\n                \"string\",\n                \"tuple\"\n            ]\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/definitions",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"definitions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit form entry",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"a string\",\n        \"false\",\n        4\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/1/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"1",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get entries for borrowers which exist longer than 3 years",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/<form_id>/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"<form_id>",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Definitions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/forms/definitions/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"definitions",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry Invalid Form Def Id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"ciao\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/asdfa/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"asdfa",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry Invalid Number of Values",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"ciao\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/asdfa/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"asdfa",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry Invalid Body",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/456445/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"456445",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry Invalid Types",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"33\",\n        \"false\",\n        59,\n        \"21/01/2002\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/4/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"4",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry 1 Borrower",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"a 55\",\n        \"(2838, 2837)\",\n        6\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/1/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"1",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry 2 Borrower",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"Tecredi\",\n        \"(4726, 348)\",\n        2\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/1/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"1",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry 3 Borrower",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"Provi\",\n        \"(482, 2833)\",\n        8\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/1/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"1",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry 1 Investor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        5000000,\n        \"True\",\n        \"21/01/2002\",\n        73\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/2/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"2",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry 2 Investor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        10000000,\n        \"F\",\n        \"09/03/2006\",\n        23\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/2/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"2",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry 3 Investor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"10M\",\n        1,\n        \"09/03/2006\",\n        23\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/2/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"2",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Form Entries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/forms/definitions/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"definitions",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Form Entry 3 Borrower Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"values\": [\n        \"Provi\",\n        [12, 87],\n        8\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/forms/1/entries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"forms",
+						"1",
+						"entries"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
