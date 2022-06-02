@@ -6,8 +6,6 @@ import { FormDefNotFoundError, UserNotFoundError, InvalidNumberFieldsError, Inva
 import { BOOLEAN, DATE, NUMBER, STRING, TUPLE } from '@shared/constants';
 import { equal } from 'assert';
 
-
-
 /**
  * Get all forms.
  * 
@@ -103,18 +101,21 @@ async function addOne(form: IForm): Promise<void> {
         let ourTuple: [number, boolean, string];
         var i:number; 
         for(i = 0;i<form.values.length;i++) {
-            let actualValue = form.values[i]
+            let actualValue = form.values[i];
             switch (formdefinition.types[i]) {
                 case STRING:
                     console.log(i + ' - Check String: ' + actualValue);
                     let castString:string = (actualValue as string)
                     console.log(castString)
                     console.log((actualValue as string).length);
+                    form.values[i] = castString;
                     break;
                 case NUMBER:
+                    // NOTE: Just checking number cast, not integer
                     console.log(i + ' - Check integer: ' + actualValue);
                     let castNumber:number = (actualValue as number)
                     checkValidNumber(castNumber);
+                    form.values[i] = castNumber;
                     break;
                 case BOOLEAN:
                     console.log(i + ' - Check boolean: ' + actualValue);
@@ -130,53 +131,36 @@ async function addOne(form: IForm): Promise<void> {
                     // Only work with format: dd/mm/YYYY
                     // TODO: Regex
                     console.log(i + ' - Check Date: ' + actualValue);
-                    console.log(Date.parse(actualValue as string))
-                    let dateStr = actualValue as string
+                    let dateStr = actualValue as string;
 
-                    let firstSlash = dateStr.slice(2,3)
-                    let secondSlash = dateStr.slice(5,6)
-
-                    // console.log(firstSlash)
-                    // console.log(secondSlash)
+                    let firstSlash = dateStr.slice(2,3);
+                    let secondSlash = dateStr.slice(5,6);
 
                     checkValidDateFormat(firstSlash, secondSlash);
 
-                    let day: number = dateStr.slice(0, 2) as unknown as number
-                    checkValidNumber(day)
+                    let day: number = dateStr.slice(0, 2) as unknown as number;
+                    checkValidNumber(day);
 
-                    let month: number = dateStr.slice(3, 5) as unknown as number
-                    checkValidNumber(month)
+                    let month: number = dateStr.slice(3, 5) as unknown as number;
+                    checkValidNumber(month);
 
-                    let year: number = dateStr.slice(6,10) as unknown as number
-                    checkValidNumber(year)
+                    let year: number = dateStr.slice(6,10) as unknown as number;
+                    checkValidNumber(year);
 
-                    // console.log(day)
-                    // console.log(month)
-                    // console.log(year)
-
-                    let date: Date = new Date(year, month - 1, day, 1, 0, 0, 0)
-
-                    console.log(date)
+                    let date: Date = new Date(year, month - 1, day, 1, 0, 0, 0);
                     form.values[i] = date
                     break;
                 case TUPLE:
+                    // TODO: regex to extract lat and lon
+                    // TODO: save lat and lon as [lat, lon]
                     console.log(i + ' - Check tuple: ' + actualValue);
                     break;
                 default:
                     throw Error('Invalid case');
             }
-
-
-            
          }
-        formdefinition.types.forEach(function(item){  
-            
-        });  
-
     }
-
     
-
     return formRepo.add(form);
     
 }
