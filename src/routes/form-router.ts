@@ -18,6 +18,7 @@ const { CREATED, OK } = StatusCodes;
 export const p = {
     get: '/all',
     add: '/:form_definition_id/entries',
+    filter: '/:form_definition_id/entries',
     update: '/update',
     delete: '/delete/:id',
 } as const;
@@ -30,6 +31,20 @@ export const p = {
 router.get(p.get, async (_: Request, res: Response) => {
     const users = await formService.getAll();
     return res.status(OK).json({users});
+});
+
+/**
+ * Get all form entries of a form definition where company older than 3 years.
+ */
+ router.get(p.filter, async (req: Request, res: Response) => {
+    let threshold = 3;
+    let whichField = 1;
+    
+     // TODO: Check if a number
+    let form_definition_id: number = parseInt(req.params.form_definition_id);
+
+    const forms = await formService.filterAndListForms(form_definition_id, threshold, whichField);
+    return res.status(OK).json({forms});
 });
 
 

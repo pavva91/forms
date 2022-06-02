@@ -16,7 +16,71 @@ import { equal } from 'assert';
 function getAll(): Promise<IForm[]> {
     return formRepo.getAll();
 }
+/**
+ * Return the list of form entries that have the numeric field "whichField" greater than "thresholdValue"
+ * @param form_definition_id 
+ * @param thresholdValue The number that is filtering
+ * @param whichField Which numeric field in the entry
+ * @returns 
+ */
+async function filterAndListForms(form_definition_id: number, thresholdValue: number, whichField: number): Promise<IForm[]> {
+    await checkFormDefinitionExist(form_definition_id);
 
+    const formDefinition = await formDefRepo.get(form_definition_id);
+
+    var index: number = -1
+
+    if(formDefinition !== null){
+        var count:number = countIntegerFields(formDefinition);
+        if(count <= 0) {
+            throw Error("No number fields in form definition with id: " + form_definition_id)
+        }
+        if(whichField > count) {
+            throw Error("No such a number of numeric fields present in form definition. Are present " + count + " numeric fields and you requested the field " + whichField)
+        }
+
+        index = getIndexOfWantedField(count, formDefinition, whichField);
+
+    }
+
+    var resultForms: IForm[] = [];
+
+    (await formRepo.getAll()).forEach(form => {
+        if(form.values[index] as number > thresholdValue) {
+            resultForms.push(form)
+        }
+    });
+
+    return resultForms;
+}
+
+function getIndexOfWantedField(count: number, formDefinition: IFormDef, whichField: number) :number{
+    var index: number = -1;
+    var count: number = 0;
+    for (var i: number = 0; i < formDefinition.types.length && index < 0; i++) {
+        if (formDefinition.types[i] === NUMBER) {
+            count++;
+        }
+        if (count === whichField) {
+            index = i;
+        }
+    }
+    if(index<0) {
+        throw Error("Not Found")
+    }
+    return index;
+}
+
+
+function countIntegerFields(formDefinition: IFormDef): number{
+    var count: number = 0;
+    for (var i: number = 0; i < formDefinition.types.length; i++) {
+        if (formDefinition.types[i] === NUMBER) {
+            count++;
+        }
+    }
+    return count;
+}
 
 /**
  * Add one form entry.
@@ -119,7 +183,7 @@ async function addOne(form: IForm): Promise<void> {
 
 const isBooleanParsable = (val: string ): boolean => {
     const s = val && val.toString().toLowerCase().trim();
-    if (s == 'true' || s == 'false'){
+    if (s == 'true' || s == 'false' || s == 'f' || s == 't'){
         return true;
     }
     return false; 
@@ -127,9 +191,9 @@ const isBooleanParsable = (val: string ): boolean => {
 
 const parseBoolean = (val: string ): boolean => {
     const s = val && val.toString().toLowerCase().trim();
-    if (s == 'true'){
+    if (s == 'true' || s == 't'){
         return true;
-    } else if (s == 'false') {
+    } else if (s == 'false' || s == 'f') {
         return false; 
     }else {
         throw Error("Invalid Input")
@@ -199,6 +263,7 @@ async function deleteOne(id: number): Promise<void> {
 
 // Export default
 export default {
+    filterAndListForms,
     getAll,
     addOne,
     updateOne,
